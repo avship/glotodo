@@ -32,6 +32,7 @@ const render = function () {
     }
     li.querySelector(".todo-complete").addEventListener("click", function () {
       item.completed = !item.completed;
+      localStorage.setItem("todoTasks", JSON.stringify(toDoData));
       render();
     });
     li.querySelector(".todo-remove").addEventListener("click", function () {
