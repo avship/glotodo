@@ -11,11 +11,11 @@ function loader() {
     : [];
 }
 loader();
+
 const render = function () {
   todoCompleted.innerHTML = "";
   todoList.innerHTML = "";
   toDoData.forEach(function (item, index) {
-    console.log(index, item);
     const li = document.createElement("li");
     li.classList.add("todo-item");
     li.innerHTML = `<span class="text-todo">${item.text}</span>
@@ -32,20 +32,21 @@ const render = function () {
     }
     li.querySelector(".todo-complete").addEventListener("click", function () {
       item.completed = !item.completed;
-      localStorage.setItem("todoTasks", JSON.stringify(toDoData));
-      render();
+      updateRender();
     });
     li.querySelector(".todo-remove").addEventListener("click", function () {
       toDoData.splice(
         +li.querySelector(".todo-remove").getAttribute("data-item"),
         1
       );
-      localStorage.setItem("todoTasks", JSON.stringify(toDoData));
-      render();
+      updateRender();
     });
   });
 };
-
+const updateRender = () => {
+  localStorage.setItem("todoTasks", JSON.stringify(toDoData));
+  render();
+};
 render();
 todoControl.addEventListener("submit", function (event) {
   event.preventDefault();
